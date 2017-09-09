@@ -1,0 +1,2 @@
+c:\users\aribr\documents\visual studio 2015\Projects\NFC Api Rest\NFC Api Rest\obj\Debug\NFC Api Rest.njsprojResolveAssemblyReference.cache
+c:\users\aribr\documents\visual studio 2015\Projects\NFC Api Rest\NFC Api Rest\bin\Microsoft.NodejsTools.WebRole.dll
