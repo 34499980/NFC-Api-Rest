@@ -1,8 +1,8 @@
 ﻿module.exports = function (app) {
-    var Empleado = require('./server');
+    var Empleado = require('./app');
 
     //GET
-    findallEmpleados = function (req, res) {
+    findAllEmpleados = function (req, res) {
         Empleado.find(function (err, empleado){
             if (!err) res.send(empleado);
             else console.log('ERROR:' + err);
@@ -55,7 +55,7 @@
         });
     }
         //API Routes
-       app.get('/empleado', findallEmpleados);
+       app.get('/empleado', findAllEmpleados);
        app.get('/empleado/:id', findById);
        app.get('/empleado', addEmpleado);
        app.get('/empleado/:id', updateEmpleado)

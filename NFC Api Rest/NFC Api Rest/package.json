@@ -7,8 +7,6 @@
     "name": "aribr"
   },
   "dependencies": {
-    "express": "3.4.4",
-    "jade": "*",
-    "stylus": "*"
+    "express": "^4.15.4"
   }
 }
