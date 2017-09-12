@@ -1,1 +1,0 @@
-C:\Proyectos\NFC Api Rest\NFC Api Rest\obj\Debug\NFC Api Rest.njsprojResolveAssemblyReference.cache
