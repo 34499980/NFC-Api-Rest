@@ -13,10 +13,10 @@ mongoose.connect('mongodb://localhost/empleado', function (err, res) {
 //    app.use(express.methodOverride());
 //    app.use(app.router);
 //});
-app.get('/', function (rec, res) {
-    res.send('Hola, Mundo!');
-});
-//require('./routes', routes);
+//app.get('/', function (rec, res) {
+//    res.send('Hola, Mundo!');
+//});
+require('./routes', routes);
 app.listen(5000);
 console.log('Servidor express escuchando en el puerto 5000');
 //# sourceMappingURL=server.js.map
