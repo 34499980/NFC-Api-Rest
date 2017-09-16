@@ -16,8 +16,10 @@ app.use(bodyParser.json());
 app.use(methodOverride());
 
 // Import Models and controllers
-var models     = require('./models/empleado')(app, mongoose)
+var empleadoModel = require('./models/empleado')(app, mongoose)
+var codigoModel = require('./models/codigo')(app, mongoose)
 var EmpleadosCtrl = require('./controllers/empleados')
+var CodigoCtrl = require('./controllers/codigo')
 
 // API routes
 var nfcRoutes = express.Router();
@@ -26,10 +28,15 @@ nfcRoutes.route('/empleados')
 .get(EmpleadosCtrl.findAllEmpleados)
 .post(EmpleadosCtrl.addEmpleado);
 
-// tvshows.route('/empleados/:id')
-// .get(TVShowCtrl.findById)
-// .put(TVShowCtrl.updateTVShow)
-// .delete(TVShowCtrl.deleteTVShow);
+// nfcRoutes.route('/empleados/:id')
+// .get(EmpleadosCtrl.findById)
+// .put(EmpleadosCtrl.updateEmpleado)
+// .delete(EmpleadosCtrl.deleteEmpleado);
+
+
+nfcRoutes.route('/codigo')
+.get(CodigoCtrl.getCodigo)
+.post(CodigoCtrl.addCodigo);
 
 app.use('/api', nfcRoutes);
 

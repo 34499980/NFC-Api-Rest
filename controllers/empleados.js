@@ -1,9 +1,6 @@
-
-//File: controllers/tvshows.js
 var mongoose = require('mongoose');
 var Empleado  = mongoose.model('Empleado');
 
-//GET - Return all tvshows in the DB
 exports.findAllEmpleados = function(req, res) {
 	Empleado.find(function(err, empleados) {
     if(err) res.send(500, err.message);
@@ -13,7 +10,6 @@ exports.findAllEmpleados = function(req, res) {
 	});
 };
 
-//POST - Insert a new TVShow in the DB
 exports.addEmpleado = function(req, res) {
 	console.log('POST');
 	console.log(req.body);
