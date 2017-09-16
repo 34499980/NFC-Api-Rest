@@ -17,14 +17,14 @@ app.use(methodOverride());
 
 // Import Models and controllers
 var models     = require('./models/empleado')(app, mongoose)
-var NfcCtrl = require('./controllers/nfc')
+var EmpleadosCtrl = require('./controllers/empleados')
 
 // API routes
 var nfcRoutes = express.Router();
 
 nfcRoutes.route('/empleados')
-.get(NfcCtrl.findAllEmpleados)
-.post(NfcCtrl.addEmpleado);
+.get(EmpleadosCtrl.findAllEmpleados)
+.post(EmpleadosCtrl.addEmpleado);
 
 // tvshows.route('/empleados/:id')
 // .get(TVShowCtrl.findById)
