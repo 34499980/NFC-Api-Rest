@@ -34,12 +34,18 @@ var nfcRoutes = express.Router();
 nfcRoutes.route('/employee')
 .get(employeeController.findAllEmployee)
 .post(employeeController.addEmployee);
+//.put(EmpleadosCtrl.updateEmpleado);
+//.delete(EmpleadosCtrl.deleteEmpleado);
 
 nfcRoutes.route('/employee/:id')
 .get(employeeController.findById)
+
+nfcRoutes.route('/employee/byExpedient/:expedient')
 .get(employeeController.findByExpedient);
-//.put(EmpleadosCtrl.updateEmpleado);
-// .delete(EmpleadosCtrl.deleteEmpleado);
+
+
+nfcRoutes.route('/employee/canAccess/:id')
+.get(employeeController.canAccess);
 
 
 nfcRoutes.route('/code')
