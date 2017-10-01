@@ -1,0 +1,202 @@
+{
+	"id": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+	"name": "Acciona NFC",
+	"description": "",
+	"order": [
+		"db4bccfe-29d2-bbf2-8b1d-1fb785e4905f",
+		"3c387b7d-7d88-2e1b-2957-3cdc4b3edf8b",
+		"e6bc2067-cb12-c3b2-74dc-9ed8c1cb7edc",
+		"7d80feed-a7ec-c552-4690-2c3716363dfa",
+		"97a839c1-cdb6-0c66-4fe7-95b169a2f3fd",
+		"9c15b03e-600e-ea49-5ff9-79984db4322a"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1505183810501,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "3c387b7d-7d88-2e1b-2957-3cdc4b3edf8b",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/employee",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1506885452129,
+			"name": "all empleados",
+			"description": "",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"responses": [],
+			"rawModeData": "{\n\"nombre\":\"fede1\",\n\t\t\"apellido\": \t  \"bucich\",\n\t\t\"legajo\":  \"test\",\n\t\t\"IdSube\":   \"test\"\t\n}"
+		},
+		{
+			"id": "7d80feed-a7ec-c552-4690-2c3716363dfa",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/employee/59d13f2e4a7816d50c000003",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "empleados by id",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1506887082604,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"nombre\":\"fede1\",\n\t\t\"apellido\": \t  \"bucich\",\n\t\t\"legajo\":  \"test\",\n\t\t\"IdSube\":   \"test\"\t\n}"
+		},
+		{
+			"id": "97a839c1-cdb6-0c66-4fe7-95b169a2f3fd",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/employee/byExpedient/FB1234",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "empleados by expedient",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1506887392969,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"nombre\":\"fede1\",\n\t\t\"apellido\": \t  \"bucich\",\n\t\t\"legajo\":  \"test\",\n\t\t\"IdSube\":   \"test\"\t\n}"
+		},
+		{
+			"id": "9c15b03e-600e-ea49-5ff9-79984db4322a",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/employee/canAccess/59d147df416e21df0e000003",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1506889739074,
+			"name": "can access",
+			"description": "",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"responses": [],
+			"rawModeData": "{\n\"nombre\":\"fede1\",\n\t\t\"apellido\": \t  \"bucich\",\n\t\t\"legajo\":  \"test\",\n\t\t\"IdSube\":   \"test\"\t\n}"
+		},
+		{
+			"id": "db4bccfe-29d2-bbf2-8b1d-1fb785e4905f",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/employee",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1506887774310,
+			"name": "save empleados",
+			"description": "",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"responses": [],
+			"rawModeData": "{\n  \"name\": \"Ariel\",\n  \"lastName\": \"Brenman\",\n  \"expedient\": \"AB1234\",\n  \"nfcTag\": \"D1000F\",\n  \"status\": {\n    \"status\": \"active\"\n  },\n  \"scheduleWorkTime\": {\n    \"name\": \"Lunes\",\n    \"timeFrom\": 12,\n    \"timeTo\": 16\n  }\n}"
+		},
+		{
+			"id": "e6bc2067-cb12-c3b2-74dc-9ed8c1cb7edc",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/codigo",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1505595203835,
+			"name": "save codigo",
+			"description": "",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"responses": [],
+			"rawModeData": "{\n\"codigoSube\":\"dldflshdf\"\n}"
+		}
+	]
+}
