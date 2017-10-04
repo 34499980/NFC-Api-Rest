@@ -55,6 +55,6 @@ nfcRoutes.route('/code')
 app.use('/api', nfcRoutes);
 
 // Start server
-app.listen(port, function() {
+module.exports = app.listen(port, function() {
 	console.log('Node server running on http://localhost:' + port);
 });
