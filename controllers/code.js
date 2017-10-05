@@ -10,8 +10,7 @@ exports.getCode = function(req, res) {
 };
 
 exports.addCode = function(req, res) {
-	console.log('POST');
-	console.log(req.body);
+	console.log('POST /code');
 
 	var code = new Code({
 		nfcTag: req.body.nfcTag				

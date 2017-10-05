@@ -1,17 +1,18 @@
+var config = require('./config');
 var express     = require("express"),
 app             = express(),
 bodyParser      = require("body-parser"),
 methodOverride  = require("method-override"),
 mongoose        = require('mongoose'),
-port = 3000,
-mongodbURI = 'mongodb://localhost/nfc';
+port = 3000
+
 
 // Connection to DB
-mongoose.connect(mongodbURI, function(err, res) {
+mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
 	if(err){
-		console.log ('ERROR connecting to: ' + mongodbURI + '. ' + err);
+		console.log ('ERROR connecting to: ' + config.mongoURI[app.settings.env] + '. ' + err);
 		throw err;
-	} else {console.log('Connected to Database Successfull.');} 
+	} else {console.log('Connected to Database ' + config.mongoURI[app.settings.env]);} 
 });
 
 // Middlewares

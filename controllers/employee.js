@@ -61,7 +61,6 @@ exports.findByExpedient = function(req, res) {
 };
 
 exports.canAccess = function(req, res) {
-	console.log("can access")
 	Employee.findOne({_id: req.params.id})
 	.populate("status")
 	.populate("scheduleWorkTime")
