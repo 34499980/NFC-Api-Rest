@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var validator = require("validator");
 var Employee = mongoose.model("Employee");
 var EmployeeAud = mongoose.model("EmployeeAudit");
 var Status = mongoose.model("Status");
@@ -16,7 +17,10 @@ exports.findAllEmployee = function(req, res) {
 };
 
 exports.addEmployee = function(req, res) {
-  //chequeo si ya existe un usuario con el mismo nombre apellido y legajo.
+	if(!validator.isAlpha(req.body.name)) {res.status(500).send(String("El nombre debe contener solo letras.")); return}
+	if(!validator.isAlpha(req.body.lastName)) {res.status(500).send(String("El apellido debe contener solo letras.")); return};
+	if(!validator.isAlphanumeric(req.body.expedient)) {res.status(500).send(String("El legajo debe contener letras y numeros unicamente.")); return};
+	if(!validator.isAlpha(req.body.status.status)) {res.status(500).send(String("El estado debe contener solo letras.")); return};
   this.existEmployeeByFullNameAndExpedient(
     {
       name: req.body.name,
@@ -75,7 +79,6 @@ existEmployeeByFullNameAndExpedient = function(req, result) {
         console.log("error " + err);
         result(err);
       }
-      console.log("empleado : " + findEmp);
       result(null, findEmp != null);
     }
   );
@@ -94,10 +97,9 @@ exports.updateEmployee = function(req, res) {
       status: new Status({ status: req.params.status }),
       scheduleWorkTime: req.params.scheduleWorkTime
     },
-    { new: true },
+    { new: false },
     function(err, updEmpl) {
       if (err) res.status(500).send(String(err));
-      console.log("updEmpl " + updEmpl);
 
       if (updEmpl == null)
         res
@@ -113,7 +115,6 @@ exports.updateEmployee = function(req, res) {
       });
 
       employeeAudit.save(function(err, auditSaved) {
-        console.log("employeeAudit : " + auditSaved);
         if (err) res.status(500).send(String(err));
         res.status(200).jsonp(updEmpl);
       });
@@ -131,8 +132,6 @@ exports.deleteEmployee = function(req, res) {
     function(err, delEmpl) {
       if (err) res.status(500).send(String(err));
 
-      console.log("delEmp " + delEmpl);
-
       if (delEmpl == null)
         res
           .status(404)
@@ -147,7 +146,6 @@ exports.deleteEmployee = function(req, res) {
       });
 
       employeeAudit.save(function(err, auditSaved) {
-        console.log("employeeAudit : " + auditSaved);
         if (err) res.status(500).send(String(err));
         res.status(200).jsonp(delEmpl);
       });

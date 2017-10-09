@@ -5,7 +5,8 @@
     "mongoose": "~3.6.11",
     "express": "^4.7.1",
     "method-override": "^2.1.2",
-    "body-parser": "^1.5.1"
+    "body-parser": "^1.5.1",
+    "validator": "9.0.0"
   },
   "scripts": {
     "start": "NODE_ENV=development & node app.js",
