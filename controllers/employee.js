@@ -34,9 +34,7 @@ exports.addEmployee = function(req, res) {
 				);
 			} else {
 				saveStatus(req.body.status).then(s => {
-					console.log('status', s)
 					saveWorkTimes(req.body.scheduleWorkTime).then(wt => {
-						console.log('wt', wt)
 						const employee = new Employee({
 							name: req.body.name,
 							lastName: req.body.lastName,

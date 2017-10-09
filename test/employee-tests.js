@@ -95,6 +95,22 @@ describe("Employee", function() {
       });
   });
 
+  it("should fail to add duplicated employee on /employee POST", function(done) {
+      chai
+      .request(server)
+      .post("/api/employee")
+      .send({name: "Test 1 name",
+      lastName: "Test 1 lastName",
+      expedient: "Test 1 expedient",
+      nfcTag: "Test 1 nfcTag",
+      status: mongoose.Types.ObjectId(),
+      scheduleWorkTime: mongoose.Types.ObjectId()})
+      .end(function(err, res) {
+        res.should.have.status(500);
+        done();
+      });
+  });
+
   it("active employee inside working hours should have access on /api/employee/canAccess Get", function(
     done
   ) {
