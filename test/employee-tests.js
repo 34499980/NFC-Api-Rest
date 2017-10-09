@@ -71,11 +71,18 @@ describe("Employee", function() {
         status: {
           status: "active"
         },
-        scheduleWorkTime: {
-          name: "Lunes",
-          timeFrom: 12,
-          timeTo: 16
-        }
+        scheduleWorkTime: [
+          {
+            dayNumber: 0,
+            timeFrom: 12,
+            timeTo: 16
+          },
+          {
+            dayNumber: 1,
+            timeFrom: 12,
+            timeTo: 16
+          }
+        ]
       })
       .end(function(err, res) {
         res.should.have.status(200);
@@ -88,54 +95,116 @@ describe("Employee", function() {
       });
   });
 
-  it("employee should not have access on /api/employee/canAccess Get", function(done) {
+  it("active employee inside working hours should have access on /api/employee/canAccess Get", function(
+    done
+  ) {
+    var today = new Date();
     var status = new Status({
       status: "active"
     });
+    var workTime = new WorkDayTime(
+      {
+        dayNumber: today.getDay(),
+        timeFrom: today.getHours(),
+        timeTo: today.getHours() + 1
+      }
+    );
 
     status.save(function(err, statusData) {
-      var accessEmployee = new Employee({
-        name: "Access",
-        lastName: "Access",
-        expedient: "Access",
-        nfcTag: "Access",
-        status: statusData._id,
-        scheduleWorkTime: mongoose.Types.ObjectId()
-      });
-      accessEmployee.save(function(err, employeeData) {
-        chai
-          .request(server)
-          .get("/api/employee/canAccess/" + employeeData._id)
-          .end(function(err, res) {
-            res.should.have.status(200);
-            done();
-          });
+      workTime.save(function(err, workData) {
+        var accessEmployee = new Employee({
+          name: "Access",
+          lastName: "Access",
+          expedient: "Access",
+          nfcTag: "Access",
+          status: statusData._id,
+          scheduleWorkTime: workData._id
+        });
+        accessEmployee.save(function(err, employeeData) {
+          chai
+            .request(server)
+            .get("/api/employee/canAccess/" + employeeData._id)
+            .end(function(err, res) {
+              res.should.have.status(200);
+              done();
+            });
+        });
       });
     });
   });
 
-  it("employee should have access on /api/employee/canAccess Get", function(done) {
+  it("active employee outside working hours should not have access on /api/employee/canAccess Get", function(
+    done
+  ) {
+    var today = new Date();
+    var status = new Status({
+      status: "active"
+    });
+    var workTime = new WorkDayTime(
+      {
+        dayNumber: today.getDay(),
+        timeFrom: today.getHours() + 1,
+        timeTo: today.getHours()
+      }
+    );
+
+    status.save(function(err, statusData) {
+      workTime.save(function(err, workData) {
+        var accessEmployee = new Employee({
+          name: "Access",
+          lastName: "Access",
+          expedient: "Access",
+          nfcTag: "Access",
+          status: statusData._id,
+          scheduleWorkTime: workData._id
+        });
+        accessEmployee.save(function(err, employeeData) {
+          chai
+            .request(server)
+            .get("/api/employee/canAccess/" + employeeData._id)
+            .end(function(err, res) {
+              res.should.have.status(403);
+              done();
+            });
+        });
+      });
+    });
+  });
+
+  it("inactive employee should not have access on /api/employee/canAccess Get", function(
+    done
+  ) {
+    var today = new Date();
     var status = new Status({
       status: "inactive"
     });
+    var workTime = new WorkDayTime(
+      {
+        dayNumber: today.getDay(),
+        timeFrom: today.getHours(),
+        timeTo: today.getHours() + 1
+      }
+    );
 
     status.save(function(err, statusData) {
-      var accessEmployee = new Employee({
-        name: "Access",
-        lastName: "Access",
-        expedient: "Access",
-        nfcTag: "Access",
-        status: statusData._id,
-        scheduleWorkTime: mongoose.Types.ObjectId()
-      });
-      accessEmployee.save(function(err, employeeData) {
-        chai
-          .request(server)
-          .get("/api/employee/canAccess/" + employeeData._id)
-          .end(function(err, res) {
-            res.should.have.status(403);
-            done();
-          });
+      workTime.save(function(err, workData) {
+        var accessEmployee = new Employee({
+          name: "Access",
+          lastName: "Access",
+          expedient: "Access",
+          nfcTag: "Access",
+          status: statusData._id,
+          scheduleWorkTime: workData._id
+        });
+        accessEmployee.save(function(err, employeeData) {
+          chai
+            .request(server)
+            .get("/api/employee/canAccess/" + employeeData._id)
+            .end(function(err, res) {
+              res.should.have.status(403);
+              done();
+            });
+        });
       });
     });
   });

@@ -70,7 +70,6 @@ const isAuthorized = function(employee) {
   const workTime = employee.scheduleWorkTime.filter((schedule) => {
 	  return schedule.dayNumber == today.getDay();
   })[0];
-  
   return (employee.status.status == "active" && allowedTime(workTime)) ? true : false;
 };
 
@@ -80,7 +79,7 @@ const allowedTime = function(workTime){
 	if (workTime){
 		const timeFrom = workTime.timeFrom;
 		const timeTo = workTime.timeTo;
-		allowed = (today.getHours() >= timeFrom && today.getHours() <= timeTo) ;
+		allowed = (today.getHours() >= timeFrom && today.getHours() <= timeTo);
 	}
 	return allowed;
 }
