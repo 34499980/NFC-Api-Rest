@@ -1,4 +1,4 @@
-exports = module.exports = function(app, mongoose) {
+exports = module.exports = function(mongoose) {
     
     var codeSchema = new mongoose.Schema({
         nfcTag: { type: String }                      
