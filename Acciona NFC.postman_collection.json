@@ -8,7 +8,8 @@
 		"e6bc2067-cb12-c3b2-74dc-9ed8c1cb7edc",
 		"7d80feed-a7ec-c552-4690-2c3716363dfa",
 		"97a839c1-cdb6-0c66-4fe7-95b169a2f3fd",
-		"9c15b03e-600e-ea49-5ff9-79984db4322a"
+		"9c15b03e-600e-ea49-5ff9-79984db4322a",
+		"22374f59-2681-747a-b975-dd243c593002"
 	],
 	"folders": [],
 	"folders_order": [],
@@ -16,6 +17,37 @@
 	"owner": 0,
 	"public": false,
 	"requests": [
+		{
+			"id": "22374f59-2681-747a-b975-dd243c593002",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/code",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "get codigo",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1507517417419,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"nfcTag\":\"dldflshdf\"\n}"
+		},
 		{
 			"id": "3c387b7d-7d88-2e1b-2957-3cdc4b3edf8b",
 			"headers": "Content-Type: application/json\n",
@@ -119,7 +151,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:3000/api/employee/canAccess/59d147df416e21df0e000003",
+			"url": "http://localhost:3000/api/employee/canAccess/59dad97b630437090f000004",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -131,7 +163,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1506889739074,
+			"time": 1507516945786,
 			"name": "can access",
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
@@ -149,7 +181,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:3000/api/employee",
+			"url": "http://localhost:3000/api/employee/",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -161,12 +193,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1506887774310,
+			"time": 1507514657019,
 			"name": "save empleados",
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
 			"responses": [],
-			"rawModeData": "{\n  \"name\": \"Ariel\",\n  \"lastName\": \"Brenman\",\n  \"expedient\": \"AB1234\",\n  \"nfcTag\": \"D1000F\",\n  \"status\": {\n    \"status\": \"active\"\n  },\n  \"scheduleWorkTime\": {\n    \"name\": \"Lunes\",\n    \"timeFrom\": 12,\n    \"timeTo\": 16\n  }\n}"
+			"rawModeData": "{\n  \"name\": \"Federico\",\n  \"lastName\": \"Bucich\",\n  \"expedient\": \"FB1234\",\n  \"nfcTag\": \"DB68698F\",\n  \"status\": {\n    \"status\": \"active\"\n  },\n  \"scheduleWorkTime\": [{\n    \"dayNumber\": 0,\n    \"timeFrom\": 9,\n    \"timeTo\": 22\n  },\n {\n    \"dayNumber\": 1,\n    \"timeFrom\": 9,\n    \"timeTo\": 18\n  }]\n}"
 		},
 		{
 			"id": "e6bc2067-cb12-c3b2-74dc-9ed8c1cb7edc",
@@ -179,7 +211,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:3000/api/codigo",
+			"url": "http://localhost:3000/api/code",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -191,12 +223,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1505595203835,
+			"time": 1507068865845,
 			"name": "save codigo",
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
 			"responses": [],
-			"rawModeData": "{\n\"codigoSube\":\"dldflshdf\"\n}"
+			"rawModeData": "{\n\"nfcTag\":\"dldflshdf\"\n}"
 		}
 	]
 }
