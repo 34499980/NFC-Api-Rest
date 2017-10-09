@@ -1,8 +1,8 @@
 var config = require('./config');
-var express     = require("express"),
+var express     = require('express'),
 app             = express(),
-bodyParser      = require("body-parser"),
-methodOverride  = require("method-override"),
+bodyParser      = require('body-parser'),
+methodOverride  = require('method-override'),
 mongoose        = require('mongoose'),
 port = 3000
 
@@ -22,10 +22,11 @@ app.use(methodOverride());
 
 // Import Models and controllers
 
-var codeModel = require('./models/code')(app, mongoose)
+var codeModel = require('./models/code')(mongoose)
 var statusModel = require('./models/status')(mongoose)
 var workDaytimeModel = require('./models/workDaytime')(mongoose)
-var employeeModel = require('./models/employee')(app, mongoose)
+var employeeModel = require('./models/employee')(mongoose)
+var employeeAudModel = require('./models/employeeAud')(mongoose)
 var employeeController = require('./controllers/employee')
 var codeController = require('./controllers/code')
 
@@ -40,14 +41,14 @@ nfcRoutes.route('/employee')
 
 nfcRoutes.route('/employee/:id')
 .get(employeeController.findById)
+.put(employeeController.updateEmployee)
+.delete(employeeController.deleteEmployee);
 
 nfcRoutes.route('/employee/byExpedient/:expedient')
 .get(employeeController.findByExpedient);
 
-
 nfcRoutes.route('/employee/canAccess/:id')
 .get(employeeController.canAccess);
-
 
 nfcRoutes.route('/code')
 .get(codeController.getCode)
