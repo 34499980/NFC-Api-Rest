@@ -1,3 +1,4 @@
+var cors = require('cors');
 var config = require('./config');
 var express     = require('express'),
 app             = express(),
@@ -19,6 +20,8 @@ mongoose.connect(config.mongoURI[app.settings.env], function(err, res) {
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(methodOverride());
+
+app.use(cors({origin: 'http://localhost:8080'}));
 
 // Import Models and controllers
 
