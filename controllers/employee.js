@@ -57,7 +57,7 @@ exports.addEmployee = function(req, res) {
 
           employee.save(function(err, employee) {
             if (err) res.status(500).send(String(err));
-            res.status(201).jsonp(employee);
+            res.status(200).jsonp(employee);
           });
 
           const employeeAudit = new EmployeeAud({
