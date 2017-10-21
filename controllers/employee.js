@@ -8,7 +8,6 @@ var NfcTag = mongoose.model("Code");
 
 exports.findAllEmployee = function(req, res) {
   Employee.find({})
-    .populate("status")
     .populate("scheduleWorkTime")
     .exec()
     .then(e => {
@@ -17,10 +16,12 @@ exports.findAllEmployee = function(req, res) {
 };
 
 exports.addEmployee = function(req, res) {
-	if(!validator.isAlpha(req.body.name)) {res.status(500).send(String("El nombre debe contener solo letras.")); return}
-	if(!validator.isAlpha(req.body.lastName)) {res.status(500).send(String("El apellido debe contener solo letras.")); return};
-	if(!validator.isAlphanumeric(req.body.expedient)) {res.status(500).send(String("El legajo debe contener letras y numeros unicamente.")); return};
-	if(!validator.isAlpha(req.body.status.status)) {res.status(500).send(String("El estado debe contener solo letras.")); return};
+  if (!validator.isAlpha(req.body.name)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
+  if (!validator.isAlpha(req.body.lastName)) {res.status(500).send(String("El apellido debe contener solo letras."));return;}
+  if (!validator.isAlphanumeric(req.body.expedient)) {res.status(500).send(String("El legajo debe contener letras y numeros unicamente."));return;}
+  if (!validator.isAlpha(req.body.status)) {res.status(500).send(String("El estado debe contener solo letras."));return;}
+
+  //chequeo si ya existe un usuario con el mismo nombre apellido y legajo.
   this.existEmployeeByFullNameAndExpedient(
     {
       name: req.body.name,
@@ -28,47 +29,53 @@ exports.addEmployee = function(req, res) {
       expedient: req.body.expedient
     },
     function(err, exist) {
-      if (exist){
-				res
-				.status(500)
-				.send(
-					String(
-						"Ya exite un usuario con el mismo nombre, apellido y legajo."
-					)
-				);
-			} else {
-				saveStatus(req.body.status).then(s => {
-					saveWorkTimes(req.body.scheduleWorkTime).then(wt => {
-						const employee = new Employee({
-							name: req.body.name,
-							lastName: req.body.lastName,
-							expedient: req.body.expedient,
-							nfcTag: req.body.nfcTag,
-							status: s,
-							scheduleWorkTime: wt
-						});
-						employee.save(function(err, employee) {
-							if (err) res.send(500, err.message);
-							res.status(200).jsonp(employee);
-						});
-						const employeeAudit = new EmployeeAud({
-							revType: 1,
-							expedient: req.body.expedient,
-							nfcTag: req.body.nfcTag,
-							status: s._id,
-							description: "creacion de empleado"
-						});
-					
-						// employeeAudit.save(function(err, auditSaved) {
-						// 	if (err) res.status(500).send(String(err));
-						// });
-					});
-				});
-			}
+      if (exist) {
+        res
+          .status(500)
+          .send(
+            String(
+              "Ya exite un usuario con el mismo nombre, apellido y legajo."
+            )
+          );
+      } else {
+        const scheduleWorkTime = new ScheduleWorkTime({
+          name: req.body.scheduleWorkTime.name,
+          timeFrom: req.body.scheduleWorkTime.timeFrom,
+          timeTo: req.body.scheduleWorkTime.timeTo
+        });
+        scheduleWorkTime.save(function(err, hoursSaved) {
+          if (err) res.status(500).send(String(err));
+
+          const employee = new Employee({
+            name: req.body.name,
+            lastName: req.body.lastName,
+            expedient: req.body.expedient,
+            nfcTag: req.body.nfcTag,
+            status: req.body.status,
+            scheduleWorkTime: hoursSaved._id
+          });
+
+          employee.save(function(err, employee) {
+            if (err) res.status(500).send(String(err));
+            res.status(201).jsonp(employee);
+          });
+
+          const employeeAudit = new EmployeeAud({
+            revType: 1,
+            expedient: employee.expedient,
+            nfcTag: employee.nfcTag,
+            status: employee.status,
+            description: "creacion de empleado"
+          });
+
+          employeeAudit.save(function(err, auditSaved) {
+            if (err)
+              console.log("Error al grabar auditoria", employeeAudit, err);
+          });
+        });
+      }
     }
   );
-
-  
 };
 
 existEmployeeByFullNameAndExpedient = function(req, result) {
@@ -79,6 +86,7 @@ existEmployeeByFullNameAndExpedient = function(req, result) {
         console.log("error " + err);
         result(err);
       }
+      //console.log("empleado : " + findEmp);
       result(null, findEmp != null);
     }
   );
@@ -86,76 +94,89 @@ existEmployeeByFullNameAndExpedient = function(req, result) {
 
 exports.updateEmployee = function(req, res) {
   console.log("PUT /empleado");
+	if (!validator.isAlpha(req.body.name)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
+  if (!validator.isAlpha(req.body.lastName)) {res.status(500).send(String("El apellido debe contener solo letras."));return;}
+  if (!validator.isAlphanumeric(req.body.expedient)) {res.status(500).send(String("El legajo debe contener letras y numeros unicamente."));return;}
+  if (!validator.isAlpha(req.body.status)) {res.status(500).send(String("El estado debe contener solo letras."));return;}
 
-  Employee.findOneAndUpdate(
-    { _id: req.params.id },
-    {
-      name: req.params.name,
-      lastName: req.params.lastName,
-      expedient: req.params.expedient,
-      nfcTag: req.params.nfcTag,
-      status: new Status({ status: req.params.status }),
-      scheduleWorkTime: req.params.scheduleWorkTime
-    },
-    { new: false },
-    function(err, updEmpl) {
-      if (err) res.status(500).send(String(err));
+  const scheduleWorkTime = new ScheduleWorkTime({
+    name: req.body.scheduleWorkTime.name,
+    timeFrom: req.body.scheduleWorkTime.timeFrom,
+    timeTo: req.body.scheduleWorkTime.timeTo
+  });
 
-      if (updEmpl == null)
-        res
-          .status(404)
-          .send("No se econtro ningun empleado con el id : " + req.params.id);
+  scheduleWorkTime.save(function(err, hoursSaved) {
+    if (err) res.status(500).send(String(err));
 
-      const employeeAudit = new EmployeeAud({
-        revType: 2,
-        expedient: updEmpl.expedient,
-        nfcTag: updEmpl.nfcTag,
-        status: updEmpl.status,
-        description: "modificacion del empleado"
-      });
-
-      employeeAudit.save(function(err, auditSaved) {
+    Employee.findOneAndUpdate(
+      { _id: req.params.id },
+      {
+        name: req.body.name,
+        lastName: req.body.lastName,
+        expedient: req.body.expedient,
+        nfcTag: req.body.nfcTag,
+        status: req.body.status,
+        scheduleWorkTime: hoursSaved._id
+      },
+      { new: true },
+      function(err, updEmpl) {
         if (err) res.status(500).send(String(err));
-        res.status(200).jsonp(updEmpl);
-      });
-    }
-  );
+
+        if (updEmpl == null) {
+          res
+            .status(404)
+            .send("No se econtro ningun empleado con el id : " + req.params.id);
+        } else {
+          const employeeAudit = new EmployeeAud({
+            revType: 2,
+            expedient: updEmpl.expedient,
+            nfcTag: updEmpl.nfcTag,
+            status: updEmpl.status,
+            description: "modificacion del empleado"
+          });
+          employeeAudit.save(function(err, auditSaved) {
+            if (err) console.log("Error al actualizar auditoria del empleado ", err, updEmpl);
+            res.status(200).jsonp(updEmpl);
+          });
+        }
+      }
+    );
+  });
 };
 
 //change status to inactive to employee.
 exports.deleteEmployee = function(req, res) {
-  console.log("DEL-PUT /empleado");
   Employee.findOneAndUpdate(
     { _id: req.params.id },
-    { status: new Status({ status: "inactive" }) },
+    { status: "inactive" },
     { new: true },
     function(err, delEmpl) {
       if (err) res.status(500).send(String(err));
 
-      if (delEmpl == null)
+      if (delEmpl == null) {
         res
           .status(404)
           .send("No se econtro ningun empleado con el id : " + req.params.id);
+      } else {
+        const employeeAudit = new EmployeeAud({
+          revType: 3,
+          expedient: delEmpl.expedient,
+          nfcTag: delEmpl.nfcTag,
+          status: delEmpl.status,
+          description: "modificacion del estado del empleado. (inactivo)."
+        });
 
-      const employeeAudit = new EmployeeAud({
-        revType: 3,
-        expedient: delEmpl.expedient,
-        nfcTag: delEmpl.nfcTag,
-        status: delEmpl.status,
-        description: "modificacion del estado del empleado. (inactivo)."
-      });
-
-      employeeAudit.save(function(err, auditSaved) {
-        if (err) res.status(500).send(String(err));
-        res.status(200).jsonp(delEmpl);
-      });
+        employeeAudit.save(function(err, auditSaved) {
+          if (err) res.status(500).send(String(err));
+          res.status(200).jsonp(delEmpl);
+        });
+      }
     }
   );
 };
 
 exports.findById = function(req, res) {
   Employee.findOne({ _id: req.params.id })
-    .populate("status")
     .populate("scheduleWorkTime")
     .exec()
     .then(e => {
@@ -165,7 +186,6 @@ exports.findById = function(req, res) {
 
 exports.findByExpedient = function(req, res) {
   Employee.findOne({ expedient: req.params.expedient })
-    .populate("status")
     .populate("scheduleWorkTime")
     .exec()
     .then(e => {
@@ -175,7 +195,6 @@ exports.findByExpedient = function(req, res) {
 
 exports.canAccess = function(req, res) {
   Employee.findOne({ _id: req.params.id })
-    .populate("status")
     .populate("scheduleWorkTime")
     .exec()
     .then(e => {
@@ -218,15 +237,6 @@ const saveWorkTimes = function(worktimes) {
           resolve(savedHours);
         }
       });
-    });
-  });
-};
-
-const saveStatus = function(status) {
-  return new Promise(function(resolve, reject) {
-    const statusObj = new Status(status);
-    statusObj.save(function(err, savedObj) {
-      return err ? reject("Error al guardar el status") : resolve(savedObj._id);
     });
   });
 };
