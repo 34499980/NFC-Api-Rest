@@ -20,7 +20,7 @@ describe("Employee", function() {
       lastName: "Test 1 lastName",
       expedient: "Test 1 expedient",
       nfcTag: "Test 1 nfcTag",
-      status: mongoose.Types.ObjectId(),
+      status: "status",
       scheduleWorkTime: mongoose.Types.ObjectId()
     });
     var SecondEmployee = new Employee({
@@ -28,7 +28,7 @@ describe("Employee", function() {
       lastName: "Test 2 lastName",
       expedient: "Test 2 expedient",
       nfcTag: "Test 2 nfcTag",
-      status: mongoose.Types.ObjectId(),
+      status: "status",
       scheduleWorkTime: mongoose.Types.ObjectId()
     });
     firstEmployee.save(function(err) {
@@ -68,9 +68,7 @@ describe("Employee", function() {
         lastName: "Post",
         expedient: "AB1234",
         nfcTag: "D1000F",
-        status: {
-          status: "active"
-        },
+        status: "active",
         scheduleWorkTime: [
           {
             dayNumber: 0,
@@ -103,7 +101,7 @@ describe("Employee", function() {
       lastName: "Test 1 lastName",
       expedient: "Test 1 expedient",
       nfcTag: "Test 1 nfcTag",
-      status: mongoose.Types.ObjectId(),
+      status: "active",
       scheduleWorkTime: mongoose.Types.ObjectId()})
       .end(function(err, res) {
         res.should.have.status(500);
