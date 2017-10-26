@@ -6,7 +6,11 @@ exports = module.exports = function(mongoose) {
     nfcTag: { type: String, required: true },
     status: { type: String, required: true },
     scheduleWorkTime: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "WorkDayTime" }
+      {
+        dayNumber: { type: Number },
+        timeFrom: { type: Number },
+        timeTo: { type: Number }
+      }
     ]
   });
 

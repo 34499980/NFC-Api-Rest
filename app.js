@@ -27,7 +27,6 @@ app.use(cors({origin: 'http://localhost:8080'}));
 
 var codeModel = require('./models/code')(mongoose)
 var statusModel = require('./models/status')(mongoose)
-var workDaytimeModel = require('./models/workDaytime')(mongoose)
 var employeeModel = require('./models/employee')(mongoose)
 var employeeAudModel = require('./models/employeeAud')(mongoose)
 var employeeController = require('./controllers/employee')
