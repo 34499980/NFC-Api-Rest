@@ -44,10 +44,14 @@ exports.addEmployee = function(req, res) {
             status: req.body.status,
             scheduleWorkTime: req.body.scheduleWorkTime
           });
-
+          
           employee.save(function(err, employee) {
-            if (err) res.status(500).send(String(err));
-            res.status(200).send(employee);
+            if (err) {
+              res.status(500).send(String(err));
+            }else {
+              saveAudit(1, employee)
+              res.status(200).send(employee);
+            }            
           });
       }
     }
@@ -93,6 +97,7 @@ exports.updateEmployee = function(req, res) {
             .status(404)
             .send("No se econtro ningun empleado con el id : " + req.params.id);
         } else {
+          saveAudit(2, updEmpl)
           res.status(200).send(updEmpl);          
         }
       }
@@ -113,6 +118,8 @@ exports.deleteEmployee = function(req, res) {
           .status(404)
           .send("No se econtro ningun empleado con el id : " + req.params.id);
       } else {
+        console.log("graba el puto audit");
+        saveAudit(3, delEmpl)
         res.status(200).send(delEmpl);
       }
     }
@@ -156,7 +163,6 @@ const isAuthorized = function(employee) {
 };
 
 const allowedTime = function(workTime) {
-  console.log('llego')
   let allowed = false;
   const today = new Date();
   if (workTime) {
@@ -164,6 +170,21 @@ const allowedTime = function(workTime) {
     const timeTo = workTime.timeTo;
     allowed = today.getHours() >= timeFrom && today.getHours() <= timeTo;
   }
-  console.log("allowed ", allowed);
+  
   return allowed;
+};
+
+const saveAudit = function(revType, usr) {
+  const employeeAudit = new EmployeeAud({
+    revType: revType,
+    name: usr.name,
+    lastName: usr.lastName,
+    expedient: usr.expedient,
+    nfcTag: usr.nfcTag,
+    status: usr.status,
+    scheduleWorkTime: usr.scheduleWorkTime
+  });
+  employeeAudit.save((function(err, audit) {
+    console.log(err)
+  }));
 };
