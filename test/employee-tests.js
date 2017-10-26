@@ -4,13 +4,13 @@ var server = require("../app");
 var should = chai.should();
 var mongoose = require("mongoose");
 var Employee = mongoose.model("Employee");
-var Status = mongoose.model("Status");
+var EmployeeAud = mongoose.model("EmployeeAudit");
+
 
 chai.use(chaiHttp);
 
 describe("Employee", function() {
   Employee.collection.drop();
-  Status.collection.drop();
 
   beforeEach(function(done) {
     var firstEmployee = new Employee({
@@ -38,7 +38,7 @@ describe("Employee", function() {
 
   afterEach(function(done) {
     Employee.collection.drop();
-    Status.collection.drop();
+    EmployeeAud.collection.drop();
     done();
   });
 
