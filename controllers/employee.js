@@ -118,7 +118,6 @@ exports.deleteEmployee = function(req, res) {
           .status(404)
           .send("No se econtro ningun empleado con el id : " + req.params.id);
       } else {
-        console.log("graba el puto audit");
         saveAudit(3, delEmpl)
         res.status(200).send(delEmpl);
       }
