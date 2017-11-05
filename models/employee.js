@@ -8,8 +8,8 @@ exports = module.exports = function(mongoose) {
     scheduleWorkTime: [
       {
         dayNumber: { type: Number },
-        timeFrom: { type: Number },
-        timeTo: { type: Number }
+        timeFrom: { type: Date },
+        timeTo: { type: Date }
       }
     ]
   });

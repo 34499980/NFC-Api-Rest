@@ -1,6 +1,7 @@
 var chai = require("chai");
 var chaiHttp = require("chai-http");
 var server = require("../app");
+var moment = require("moment");
 var should = chai.should();
 var mongoose = require("mongoose");
 var Employee = mongoose.model("Employee");
@@ -113,8 +114,8 @@ describe("Employee", function() {
     var workTime = 
       {
         dayNumber: today.getDay(),
-        timeFrom: today.getHours() - 1,
-        timeTo: today.getHours() + 1
+        timeFrom: moment().subtract(2, 'hours'),
+        timeTo: moment().add(2, 'hours'),
       }
     ;
         var accessEmployee = new Employee({
@@ -143,8 +144,9 @@ describe("Employee", function() {
     var workTime = 
       {
         dayNumber: today.getDay(),
-        timeFrom: today.getHours() + 1,
-        timeTo: today.getHours()
+        dayNumber: today.getDay(),
+        timeFrom: moment().add(2, 'hours'),
+        timeTo: moment().subtract(2, 'hours'),
       }
     ;
         var accessEmployee = new Employee({
@@ -173,8 +175,8 @@ describe("Employee", function() {
     var workTime = 
       {
         dayNumber: today.getDay(),
-        timeFrom: today.getHours(),
-        timeTo: today.getHours() + 1
+        timeFrom: moment().subtract(2, 'hours'),
+        timeTo: moment().add(2, 'hours'),
       }
     ;
         var accessEmployee = new Employee({

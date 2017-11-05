@@ -6,6 +6,7 @@
     "cors": "^2.8.4",
     "express": "^4.7.1",
     "method-override": "^2.1.2",
+    "moment": "^2.19.1",
     "mongoose": "~3.6.11",
     "validator": "9.0.0"
   },

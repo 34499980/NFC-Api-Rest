@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 var validator = require("validator");
+var moment = require("moment");
 var Employee = mongoose.model("Employee");
 var EmployeeAud = mongoose.model("EmployeeAudit");
 var Status = mongoose.model("Status");
@@ -163,11 +164,17 @@ const isAuthorized = function(employee) {
 
 const allowedTime = function(workTime) {
   let allowed = false;
-  const today = new Date();
+  let todayHours = moment().get('hour');
+  let todayMinutes = moment().get('minute');
   if (workTime) {
-    const timeFrom = workTime.timeFrom;
-    const timeTo = workTime.timeTo;
-    allowed = today.getHours() >= timeFrom && today.getHours() <= timeTo;
+    const timeFromHours = moment(workTime.timeFrom).local().get('hours');
+    const timeFromMinutes = moment(workTime.timeFrom).local().get('minute');
+    const timeToHours = moment(workTime.timeTo).local().get('hour');
+    const timeToMinutes = moment(workTime.timeTo).local().get('minute');
+    
+    allowed = (todayHours >= timeFromHours) && (todayHours <= timeToHours)
+              && (todayMinutes >= timeFromMinutes) && (todayMinutes <= timeToMinutes);
+    
   }
   
   return allowed;
