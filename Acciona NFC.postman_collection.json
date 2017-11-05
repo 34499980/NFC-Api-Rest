@@ -181,7 +181,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:3000/api/employee/canAccess/59f264bfcc0994bd07000002",
+			"url": "http://localhost:3000/api/employee/canAccess/59ff31702520336f32000003",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -193,7 +193,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509058030843,
+			"time": 1509903387745,
 			"name": "can access",
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
@@ -211,7 +211,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:3000/api/employee/59f264bfcc0994bd07000002",
+			"url": "http://localhost:3000/api/employee/59fe7276eb72346525000013",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -223,12 +223,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509059003878,
+			"time": 1509903390526,
 			"name": "update empleados",
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
 			"responses": [],
-			"rawModeData": "{\n  \"name\": \"Federico\",\n  \"lastName\": \"Bucich\",\n  \"expedient\": \"FB1234\",\n  \"nfcTag\": \"DB68698F\",\n  \"status\": \"inactive\",\n  \"scheduleWorkTime\": [{\n    \"dayNumber\": 4,\n    \"timeFrom\": 9,\n    \"timeTo\": 21\n  },\n {\n    \"dayNumber\": 3,\n    \"timeFrom\": 9,\n    \"timeTo\": 23\n  }]\n}"
+			"rawModeData": "{\n  \"name\": \"Federico\",\n  \"lastName\": \"Bucich\",\n  \"expedient\": \"FB1234\",\n  \"nfcTag\": \"DB68698F\",\n  \"status\": \"active\",\n  \"scheduleWorkTime\": [{\n    \"dayNumber\": 7,\n    \"timeFrom\": \"1970-01-01T09:00:00.000Z\",\n    \"timeTo\": \"1970-01-01T23:15:00.000Z\"\n  },\n {\n    \"dayNumber\": 1,\n    \"timeFrom\": \"1970-01-01T12:00:00.000Z\",\n    \"timeTo\": \"1970-01-01T21:00:00.000Z\"\n  }]\n}"
 		},
 		{
 			"id": "db4bccfe-29d2-bbf2-8b1d-1fb785e4905f",
@@ -253,12 +253,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1508625313899,
+			"time": 1509847853810,
 			"name": "save empleados",
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
 			"responses": [],
-			"rawModeData": "{\n  \"name\": \"Federico\",\n  \"lastName\": \"Bucich\",\n  \"expedient\": \"FB1234\",\n  \"nfcTag\": \"DB68698F\",\n  \"status\": \"active\",\n  \"scheduleWorkTime\": [{\n    \"dayNumber\": 0,\n    \"timeFrom\": 9,\n    \"timeTo\": 18\n  },\n {\n    \"dayNumber\": 1,\n    \"timeFrom\": 9,\n    \"timeTo\": 23\n  }]\n}"
+			"rawModeData": "{\n  \"name\": \"Federico\",\n  \"lastName\": \"Bucich\",\n  \"expedient\": \"FB1234\",\n  \"nfcTag\": \"DB68698F\",\n  \"status\": \"active\",\n  \"scheduleWorkTime\": [{\n    \"dayNumber\": 6,\n    \"timeFrom\": \"1970-01-01T09:00:00.000Z\",\n    \"timeTo\": \"1970-01-01T23:15:00.000Z\"\n  },\n {\n    \"dayNumber\": 1,\n    \"timeFrom\": \"1970-01-01T12:00:00.000Z\",\n    \"timeTo\": \"1970-01-01T21:00:00.000Z\"\n  }]\n}"
 		},
 		{
 			"id": "e6bc2067-cb12-c3b2-74dc-9ed8c1cb7edc",
