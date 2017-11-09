@@ -134,6 +134,14 @@ exports.findById = function(req, res) {
     });
 };
 
+exports.findAllEmployeeByStatus = function(req, res) {
+  Employee.find({status: req.params.status})
+    .exec()
+    .then(e => {
+      res.status(200).send(e);
+    });
+};
+
 exports.findByExpedient = function(req, res) {
   Employee.findOne({ expedient: req.params.expedient })
     .exec()

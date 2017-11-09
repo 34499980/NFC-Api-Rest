@@ -41,6 +41,9 @@ nfcRoutes.route('/employee')
 //.put(EmpleadosCtrl.updateEmpleado);
 //.delete(EmpleadosCtrl.deleteEmpleado);
 
+nfcRoutes.route('/employee/byStatus/:status')
+.get(employeeController.findAllEmployeeByStatus);
+
 nfcRoutes.route('/employee/:id')
 .get(employeeController.findById)
 .put(employeeController.updateEmployee)
