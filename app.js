@@ -34,7 +34,6 @@ var statusModel = require('./models/status')(mongoose)
 var employeeModel = require('./models/employee')(mongoose)
 var employeeAudModel = require('./models/employeeAud')(mongoose)
 var employeeController = require('./controllers/employee')
-var codeController = require('./controllers/code')
 
 // API routes
 var nfcRoutes = express.Router();
@@ -63,10 +62,9 @@ nfcRoutes.route('/employee/canAccess/byNfcTag/:nfcTag')
 .get(employeeController.canAccessByNfcTag);
 
 nfcRoutes.route('/code')
-.get(codeController.getCode)
 .post((req, res) => {
 	io.emit('nfc-tag', {type:'new-nfc-tag', text: req.body.nfcTag}); 
-	res.status(200).jsonp(req.body.nfcTag);
+	res.status(200).jsonp(req.body);
 });
 
 app.use('/api', nfcRoutes);

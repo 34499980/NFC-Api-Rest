@@ -3,8 +3,6 @@ var validator = require("validator");
 var moment = require("moment");
 var Employee = mongoose.model("Employee");
 var EmployeeAud = mongoose.model("EmployeeAudit");
-var Status = mongoose.model("Status");
-var NfcTag = mongoose.model("Code");
 
 exports.findAllEmployee = function(req, res) {
   Employee.find({})
