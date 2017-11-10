@@ -6,6 +6,10 @@ bodyParser      = require('body-parser'),
 methodOverride  = require('method-override'),
 mongoose        = require('mongoose'),
 port = 3000
+var server = app.listen(3000);
+var io = require('socket.io').listen(server);
+//Web socker for nfc events
+io.on('connection', function(){ console.log("Web socket conectado"); });
 
 
 // Connection to DB
@@ -57,11 +61,12 @@ nfcRoutes.route('/employee/canAccess/:id')
 
 nfcRoutes.route('/code')
 .get(codeController.getCode)
-.post(codeController.addCode);
+.post((req, res) => {
+	io.emit('nfc-tag', {type:'new-nfc-tag', text: req.body.nfcTag}); 
+	res.status(200).jsonp(req.body.nfcTag);
+});
 
 app.use('/api', nfcRoutes);
 
 // Start server
-module.exports = app.listen(port, function() {
-	console.log('Node server running on http://localhost:' + port);
-});
+module.exports = app;
