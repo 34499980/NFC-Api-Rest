@@ -56,8 +56,11 @@ nfcRoutes.route('/employee/:id')
 nfcRoutes.route('/employee/byExpedient/:expedient')
 .get(employeeController.findByExpedient);
 
-nfcRoutes.route('/employee/canAccess/:id')
-.get(employeeController.canAccess);
+nfcRoutes.route('/employee/canAccess/byId/:id')
+.get(employeeController.canAccessById);
+
+nfcRoutes.route('/employee/canAccess/byNfcTag/:nfcTag')
+.get(employeeController.canAccessByNfcTag);
 
 nfcRoutes.route('/code')
 .get(codeController.getCode)

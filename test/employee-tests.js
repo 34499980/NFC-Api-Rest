@@ -129,7 +129,7 @@ describe("Employee", function() {
         accessEmployee.save(function(err, employeeData) {
           chai
             .request(server)
-            .get("/api/employee/canAccess/" + employeeData._id)
+            .get("/api/employee/canAccess/byId/" + employeeData._id)
             .end(function(err, res) {
               res.should.have.status(200);
               done();
@@ -160,7 +160,7 @@ describe("Employee", function() {
         accessEmployee.save(function(err, employeeData) {
           chai
             .request(server)
-            .get("/api/employee/canAccess/" + employeeData._id)
+            .get("/api/employee/canAccess/byId/" + employeeData._id)
             .end(function(err, res) {
               res.should.have.status(403);
               done();
@@ -190,7 +190,7 @@ describe("Employee", function() {
         accessEmployee.save(function(err, employeeData) {
           chai
             .request(server)
-            .get("/api/employee/canAccess/" + employeeData._id)
+            .get("/api/employee/canAccess/byId/" + employeeData._id)
             .end(function(err, res) {
               res.should.have.status(403);
               done();

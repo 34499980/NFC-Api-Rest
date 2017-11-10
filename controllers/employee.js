@@ -150,13 +150,25 @@ exports.findByExpedient = function(req, res) {
     });
 };
 
-exports.canAccess = function(req, res) {
+exports.canAccessById = function(req, res) {
   Employee.findOne({ _id: req.params.id })
     .exec()
     .then(e => {
-      isAuthorized(e)
-        ? res.status(200).send("Authorized")
-        : res.status(403).send("Unauthorized");
+      const authorizedObj = isAuthorized(e);
+      authorizedObj.status != 'Unauthorized'
+        ? res.status(200).send(authorizedObj.message)
+        : res.status(403).send(authorizedObj.message);
+    });
+};
+
+exports.canAccessByNfcTag = function(req, res) {
+  Employee.findOne({ nfcTag: req.params.nfcTag })
+    .exec()
+    .then(e => {
+      const authorizedObj = isAuthorized(e);
+      authorizedObj.status != 'Unauthorized'
+        ? res.status(200).send(authorizedObj.message)
+        : res.status(403).send(authorizedObj.message);
     });
 };
 
@@ -165,27 +177,25 @@ const isAuthorized = function(employee) {
   const workTime = employee.scheduleWorkTime.filter(schedule => {
     return schedule.dayNumber == today.getDay();
   })[0];
-  const allowedEntry = allowedTime(workTime);
   
-  return employee.status == "active" && allowedEntry
+  return employee.status == 'active' 
+    ? workTime 
+      ? allowedTime(workTime, employee) 
+      : {status: 'Unauthorized', message:'No tiene permitido entrar este dia.'}
+    : {status: 'Unauthorized', message:'Usted no esta activo y no puede ingresar.'};
 };
 
-const allowedTime = function(workTime) {
-  let allowed = false;
+const allowedTime = function(workTime, employee) {
   let todayHours = moment().get('hour');
   let todayMinutes = moment().get('minute');
-  if (workTime) {
-    const timeFromHours = moment(workTime.timeFrom).local().get('hours');
-    const timeFromMinutes = moment(workTime.timeFrom).local().get('minute');
-    const timeToHours = moment(workTime.timeTo).local().get('hour');
-    const timeToMinutes = moment(workTime.timeTo).local().get('minute');
-    
-    allowed = (todayHours >= timeFromHours) && (todayHours <= timeToHours)
-              && (todayMinutes >= timeFromMinutes) && (todayMinutes <= timeToMinutes);
-    
-  }
+  let today = moment(workTime.timeFrom); //Los seteo al mismo mes y año para comparar solo horarios
+  //Seteo hora y minutos actuales
+  today.hours(todayHours);
+  today.minutes(todayMinutes);
   
-  return allowed;
+  return today.isBetween(workTime.timeFrom, workTime.timeTo, []) 
+  ? {status: 'Authorized', message:'Bienvenido ' + employee.name} 
+  : {status: 'Unauthorized', message:'No puede entrar en este horario '};    
 };
 
 const saveAudit = function(revType, usr) {
