@@ -156,8 +156,8 @@ exports.canAccessById = function(req, res) {
     .then(e => {
       const authorizedObj = isAuthorized(e);
       authorizedObj.status != 'Unauthorized'
-        ? res.status(200).send(authorizedObj.message)
-        : res.status(403).send(authorizedObj.message);
+        ? res.status(200).jsonp(authorizedObj.message)
+        : res.status(403).jsonp(authorizedObj.message);
     });
 };
 
@@ -167,8 +167,8 @@ exports.canAccessByNfcTag = function(req, res) {
     .then(e => {
       const authorizedObj = isAuthorized(e);
       authorizedObj.status != 'Unauthorized'
-        ? res.status(200).send(authorizedObj.message)
-        : res.status(403).send(authorizedObj.message);
+        ? res.status(200).jsonp(authorizedObj.message)
+        : res.status(403).jsonp(authorizedObj.message);
     });
 };
 
