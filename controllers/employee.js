@@ -13,10 +13,13 @@ exports.findAllEmployee = function(req, res) {
 };
 
 exports.addEmployee = function(req, res) {
-  if (!validator.isAlpha(req.body.name)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
-  if (!validator.isAlpha(req.body.lastName)) {res.status(500).send(String("El apellido debe contener solo letras."));return;}
+  if (!validator.matches(req.body.name, /^[a-z .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
+  if (!validator.matches(req.body.lastName, /^[a-z .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
   if (!validator.isAlphanumeric(req.body.expedient)) {res.status(500).send(String("El legajo debe contener letras y numeros unicamente."));return;}
   if (!validator.isAlpha(req.body.status)) {res.status(500).send(String("El estado debe contener solo letras."));return;}
+  if (validator.isEmpty(req.body.name) || validator.isEmpty(req.body.lastName)
+  || validator.isEmpty(req.body.expedient) || validator.isEmpty(req.body.status)
+  || validator.isEmpty(req.body.nfcTag)) {res.status(500).send(String("No puede haber campos vacios"));return;}
 
   //chequeo si ya existe un usuario con el mismo nombre apellido y legajo.
   this.existEmployeeByFullNameAndExpedient(
@@ -71,11 +74,13 @@ existEmployeeByFullNameAndExpedient = function(req, result) {
 };
 
 exports.updateEmployee = function(req, res) {
-  console.log("PUT /empleado");
-	if (!validator.isAlpha(req.body.name)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
-  if (!validator.isAlpha(req.body.lastName)) {res.status(500).send(String("El apellido debe contener solo letras."));return;}
+  if (!validator.matches(req.body.name, /^[a-z .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
+  if (!validator.matches(req.body.lastName, /^[a-z .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
   if (!validator.isAlphanumeric(req.body.expedient)) {res.status(500).send(String("El legajo debe contener letras y numeros unicamente."));return;}
   if (!validator.isAlpha(req.body.status)) {res.status(500).send(String("El estado debe contener solo letras."));return;}
+  if (validator.isEmpty(req.body.name) || validator.isEmpty(req.body.lastName)
+    || validator.isEmpty(req.body.expedient) || validator.isEmpty(req.body.status)
+    || validator.isEmpty(req.body.nfcTag)) {res.status(500).send(String("No puede haber campos vacios"));return;}
 
     Employee.findOneAndUpdate(
       { _id: req.params.id },
@@ -152,6 +157,9 @@ exports.canAccessById = function(req, res) {
   Employee.findOne({ _id: req.params.id })
     .exec()
     .then(e => {
+      if (e == null) {
+        res.status(403).jsonp("No estas registrado. Por favor registrate para ingresar");
+      }
       const authorizedObj = isAuthorized(e);
       authorizedObj.status != 'Unauthorized'
         ? res.status(200).jsonp(authorizedObj.message)
@@ -163,6 +171,9 @@ exports.canAccessByNfcTag = function(req, res) {
   Employee.findOne({ nfcTag: req.params.nfcTag })
     .exec()
     .then(e => {
+      if (e == null) {
+        res.status(403).jsonp("No estas registrado. Por favor registrate para ingresar");
+      }
       const authorizedObj = isAuthorized(e);
       authorizedObj.status != 'Unauthorized'
         ? res.status(200).jsonp(authorizedObj.message)
@@ -191,7 +202,8 @@ const allowedTime = function(workTime, employee) {
   today.hours(todayHours);
   today.minutes(todayMinutes);
   
-  return today.isBetween(workTime.timeFrom, workTime.timeTo, []) 
+  const isSame = today.isSame(workTime.timeTo) || today.isSame(workTime.timeFrom)
+  return today.isBetween(workTime.timeFrom, workTime.timeTo, []) || isSame
   ? {status: 'Authorized', message:'Bienvenido ' + employee.name} 
   : {status: 'Unauthorized', message:'No puede entrar en este horario '};    
 };

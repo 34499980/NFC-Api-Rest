@@ -197,6 +197,35 @@ describe("Employee", function() {
             });
         });
   });
+  it("unregistered employee should not have access on /api/employee/canAccess Get", function(
+    done
+  ) {
+    var today = new Date();
+    var workTime = 
+      {
+        dayNumber: today.getDay(),
+        timeFrom: moment().subtract(2, 'hours'),
+        timeTo: moment().add(2, 'hours'),
+      }
+    ;
+        var accessEmployee = new Employee({
+          name: "Access",
+          lastName: "Access",
+          expedient: "Access",
+          nfcTag: "Access",
+          status: "inactive",
+          scheduleWorkTime: [workTime]
+        });
+        accessEmployee.save(function(err, employeeData) {
+          chai
+            .request(server)
+            .get("/api/employee/canAccess/byNfcTag/" + "aaa")
+            .end(function(err, res) {
+              res.should.have.status(403);
+              done();
+            });
+        });
+  });
   // it('should update a SINGLE employee on /employee/<id> PUT');
   // it('should list a SINGLE employee on /employee/<id> GET');
 });
