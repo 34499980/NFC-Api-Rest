@@ -57,7 +57,6 @@ duplicatedEmployee = function(employeeId, req, result) {
   Employee.find(req,
     function(err, findEmp) {
       if (err) {
-        console.log("error " + err);
         result(err);
       }
       result(null, context.isOtherEmployee(findEmp, employeeId));
@@ -234,6 +233,6 @@ const saveAudit = function(revType, usr) {
     scheduleWorkTime: usr.scheduleWorkTime
   });
   employeeAudit.save((function(err, audit) {
-    console.log(err)
+    if (err) console.log('Error al guardar auditoria ', err)
   }));
 };

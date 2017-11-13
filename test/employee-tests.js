@@ -133,7 +133,7 @@ describe("Employee", function() {
   });
 
   //Put tests
-  it("should update a SINGLE employee on /employee POST", function(done) {
+  it("should update a SINGLE employee on /employee PUT", function(done) {
     var accessEmployee = new Employee({
       name: "PUT",
       lastName: "PUT",
@@ -167,7 +167,7 @@ describe("Employee", function() {
     });
   });
 
-  it("should fail to update employee with repeated nfctag on /employee POST", function(
+  it("should fail to update employee with repeated nfctag on /employee PUT", function(
     done
   ) {
     var accessEmployee = new Employee({
@@ -201,7 +201,7 @@ describe("Employee", function() {
     });
   });
 
-  it("should fail to update employee with repeated expedient on /employee POST", function(
+  it("should fail to update employee with repeated expedient on /employee PUT", function(
     done
   ) {
     var accessEmployee = new Employee({
