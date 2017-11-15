@@ -16,8 +16,8 @@ exports.addEmployee = function(req, res) {
   if (validator.isEmpty(req.body.name) || validator.isEmpty(req.body.lastName)
     || validator.isEmpty(req.body.expedient) || validator.isEmpty(req.body.status)
     || validator.isEmpty(req.body.nfcTag)) {res.status(500).send(String("No puede haber campos vacios"));return;}
-  if (!validator.matches(req.body.name, /^[a-z .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
-  if (!validator.matches(req.body.lastName, /^[a-z .'-]+$/i)) {res.status(500).send(String("El Apellido debe contener solo letras."));return;}
+  if (!validator.matches(req.body.name, /^[a-zÀ-ú .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
+  if (!validator.matches(req.body.lastName, /^[a-zÀ-ú .'-]+$/i)) {res.status(500).send(String("El Apellido debe contener solo letras."));return;}
   if (!validator.isAlphanumeric(req.body.expedient)) {res.status(500).send(String("El legajo debe contener letras y numeros unicamente."));return;}
   if (!validator.isAlpha(req.body.status)) {res.status(500).send(String("El estado debe contener solo letras."));return;}
 
@@ -79,8 +79,8 @@ exports.updateEmployee = function(req, res) {
   if (validator.isEmpty(req.body.name) || validator.isEmpty(req.body.lastName)
     || validator.isEmpty(req.body.expedient) || validator.isEmpty(req.body.status)
     || validator.isEmpty(req.body.nfcTag)) {res.status(500).send(String("No puede haber campos vacios"));return;}
-  if (!validator.matches(req.body.name, /^[a-z .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
-  if (!validator.matches(req.body.lastName, /^[a-z .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
+  if (!validator.matches(req.body.name, /^[a-zÀ-ú .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
+  if (!validator.matches(req.body.lastName, /^[a-zÀ-ú .'-]+$/i)) {res.status(500).send(String("El nombre debe contener solo letras."));return;}
   if (!validator.isAlphanumeric(req.body.expedient)) {res.status(500).send(String("El legajo debe contener letras y numeros unicamente."));return;}
   if (!validator.isAlpha(req.body.status)) {res.status(500).send(String("El estado debe contener solo letras."));return;}
 
