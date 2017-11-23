@@ -3,6 +3,7 @@ var validator = require("validator");
 var moment = require("moment");
 var Employee = mongoose.model("Employee");
 var EmployeeAud = mongoose.model("EmployeeAudit");
+var AccessAudit = mongoose.model("AccessAudit");
 
 exports.findAllEmployee = function(req, res) {
   Employee.find({})
@@ -186,9 +187,12 @@ exports.canAccessByNfcTag = function(req, res) {
     .exec()
     .then(e => {
       if (e == null) {
-        res.status(403).jsonp("No estas registrado. Por favor registrate para ingresar");
+        const errorMessage = "No estas registrado. Por favor registrate para ingresar";
+        createAccess(req.params.nfcTag, 'ERROR', errorMessage, '', '', '');
+        res.status(403).jsonp(errorMessage);
       }
       const authorizedObj = isAuthorized(e);
+      createAccess(req.params.nfcTag, authorizedObj.status != 'Unauthorized'? 'OK':'ERROR', authorizedObj.message, e.name, e.lastName, e.expedient);
       authorizedObj.status != 'Unauthorized'
         ? res.status(200).jsonp(authorizedObj.message)
         : res.status(403).jsonp(authorizedObj.message);
@@ -234,5 +238,20 @@ const saveAudit = function(revType, usr) {
   });
   employeeAudit.save((function(err, audit) {
     if (err) console.log('Error al guardar auditoria ', err)
+  }));
+};
+
+const createAccess = function(nfctag, status, accessDescription, employeeName, employeeLastName, employeeExpedient){
+  const accessAudit = new AccessAudit({
+    nfcTag: nfctag,
+    status: status,
+    description: accessDescription,
+    employeeFullName: employeeName + ' ' + employeeLastName,
+    employeeExpedient: employeeExpedient
+  });
+
+  accessAudit.save((function(err, accessAudit) {
+    if (err) console.log('Error al guardar la auditoria de acceso. ', err)
+    else console.log('guardado de auditoria de acceso exitoso ')
   }));
 };

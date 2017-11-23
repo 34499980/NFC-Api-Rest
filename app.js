@@ -6,7 +6,7 @@ bodyParser      = require('body-parser'),
 methodOverride  = require('method-override'),
 mongoose        = require('mongoose'),
 port = 3000
-var server = app.listen(3000);
+var server = app.listen(port);
 var io = require('socket.io').listen(server);
 //Web socker for nfc events
 io.on('connection', function(){ console.log("Web socket conectado"); });
@@ -28,12 +28,13 @@ app.use(methodOverride());
 app.use(cors({origin: 'http://localhost:8080'}));
 
 // Import Models and controllers
-
 var codeModel = require('./models/code')(mongoose)
 var statusModel = require('./models/status')(mongoose)
 var employeeModel = require('./models/employee')(mongoose)
 var employeeAudModel = require('./models/employeeAud')(mongoose)
+var accessAuditModel = require('./models/accessAudit')(mongoose)
 var employeeController = require('./controllers/employee')
+var reportAccessController = require('./controllers/reportAccess')
 
 // API routes
 var nfcRoutes = express.Router();
@@ -66,6 +67,12 @@ nfcRoutes.route('/code')
 	io.emit('nfc-tag', {type:'new-nfc-tag', text: req.body.nfcTag}); 
 	res.status(200).jsonp(req.body);
 });
+
+nfcRoutes.route('/reports/byRejectedSubeTag')
+.get(reportAccessController.findAllSubeTagInfoRejected)
+
+nfcRoutes.route('/reports/byEmployeeEnterToday')
+.get(reportAccessController.findAllEmployeeInfoEnterToday)
 
 app.use('/api', nfcRoutes);
 
