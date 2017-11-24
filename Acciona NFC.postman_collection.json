@@ -11,7 +11,10 @@
 		"97a839c1-cdb6-0c66-4fe7-95b169a2f3fd",
 		"e6bc2067-cb12-c3b2-74dc-9ed8c1cb7edc",
 		"22374f59-2681-747a-b975-dd243c593002",
-		"9c15b03e-600e-ea49-5ff9-79984db4322a"
+		"9c15b03e-600e-ea49-5ff9-79984db4322a",
+		"5475b4c1-60f4-4b3e-032a-b9274c9dc0b1",
+		"54a50d76-8ae3-8d0c-0ff1-e2a76d9546d2",
+		"4b463e3a-ba3e-b3ef-8c2a-186dafab4d04"
 	],
 	"folders": [],
 	"folders_order": [],
@@ -78,6 +81,99 @@
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
 			"responses": [],
+			"rawModeData": "{\n\"nombre\":\"fede1\",\n\t\t\"apellido\": \t  \"bucich\",\n\t\t\"legajo\":  \"test\",\n\t\t\"IdSube\":   \"test\"\t\n}"
+		},
+		{
+			"id": "4b463e3a-ba3e-b3ef-8c2a-186dafab4d04",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/reports/byEmployeeEnterToday",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "reporte empleados que entraron",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1511475453661,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"nombre\":\"fede1\",\n\t\t\"apellido\": \t  \"bucich\",\n\t\t\"legajo\":  \"test\",\n\t\t\"IdSube\":   \"test\"\t\n}"
+		},
+		{
+			"id": "5475b4c1-60f4-4b3e-032a-b9274c9dc0b1",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/employee/canAccess/byNfcTag/DB68698F",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "can access by tag",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1510333041852,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\n\"nombre\":\"fede1\",\n\t\t\"apellido\": \t  \"bucich\",\n\t\t\"legajo\":  \"test\",\n\t\t\"IdSube\":   \"test\"\t\n}"
+		},
+		{
+			"id": "54a50d76-8ae3-8d0c-0ff1-e2a76d9546d2",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:3000/api/reports/byRejectedSubeTag",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "reporte rechazadas",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1511475412935,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
 			"rawModeData": "{\n\"nombre\":\"fede1\",\n\t\t\"apellido\": \t  \"bucich\",\n\t\t\"legajo\":  \"test\",\n\t\t\"IdSube\":   \"test\"\t\n}"
 		},
 		{
@@ -181,7 +277,7 @@
 					"enabled": true
 				}
 			],
-			"url": "http://localhost:3000/api/employee/canAccess/59ff31702520336f32000003",
+			"url": "http://localhost:3000/api/employee/canAccess/byId/59ff49a41005caae37000003",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -193,7 +289,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1509903387745,
+			"time": 1510332802483,
 			"name": "can access",
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
@@ -283,12 +379,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1507068865845,
+			"time": 1510360192322,
 			"name": "save codigo",
 			"description": "",
 			"collectionId": "c7d4710e-726a-fca3-d6d9-c86846d065f3",
 			"responses": [],
-			"rawModeData": "{\n\"nfcTag\":\"dldflshdf\"\n}"
+			"rawModeData": "{\n\"nfcTag\":\"Code3\"\n}"
 		}
 	]
 }

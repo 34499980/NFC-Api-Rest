@@ -6,6 +6,7 @@ var should = chai.should();
 var mongoose = require("mongoose");
 var Employee = mongoose.model("Employee");
 var EmployeeAud = mongoose.model("EmployeeAudit");
+var AccessAud = mongoose.model("AccessAudit");
 var initialEmployeeId;
 
 chai.use(chaiHttp);
@@ -41,6 +42,11 @@ describe("Employee", function() {
   afterEach(function(done) {
     Employee.collection.drop();
     EmployeeAud.collection.drop();
+    done();
+  });
+
+  after(function(done) {
+    AccessAud.collection.drop();
     done();
   });
 
